@@ -1,0 +1,13 @@
+select
+c.expiry_date,
+c.strike_price,
+sum(t.val_inlakh) as total_val
+from trades t
+join contracts c
+on t.contract_id = c.contract_id
+join instruments i
+    on c.instrument_id = i.instrument_id
+where i.symbol = 'nifty'
+  and i.instrument_type like 'opt%'
+group by c.expiry_date, c.strike_price
+order by c.expiry_date, c.strike_price;
