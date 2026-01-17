@@ -1,0 +1,11 @@
+select
+i.symbol,
+max(t.val_inlakh) as  max_value
+from trades t
+join contracts c
+    on t.contract_id = c.contract_id
+join instruments i
+    on c.instrument_id = i.instrument_id
+where t.trade_date>= '2019-10-18'
+group by i.symbol
+order by max_value desc;
